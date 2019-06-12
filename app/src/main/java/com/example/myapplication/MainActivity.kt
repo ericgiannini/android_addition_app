@@ -1,39 +1,43 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+//import android.widget.Button
+//import android.widget.EditText
+//import android.widget.TextView
 import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        // Creating instances of widgets, i.e., button, edittext, textview
-        var num1=findViewById<View>(R.id.firstNumEditText) as EditText
-        var num2=findViewById<View>(R.id.secondNumEditText) as EditText
+        /*
+        // Getting references of widgets, i.e., button, edittext, textview.
+        // This is the 'classic' way with findViewById:
+        val firstNumEditText = findViewById<EditText>(R.id.firstNumEditText)
+        val secondNumEditText = findViewById<EditText>(R.id.secondNumEditText)
 
-        var result=findViewById<View>(R.id.resultTextView) as TextView
-        var addition=findViewById<View>(R.id.addButton) as Button
+        val resultTextView = findViewById<TextView>(R.id.resultTextView)
+        val addButton = findViewById<Button>(R.id.addButton)
+        */
 
-        addition.setOnClickListener(View.OnClickListener {
-            result.text="Add="+(num1.text.toString().toInt()+num2.text.toString().toInt()).toString()
+        // We use instead the more concise synthetic view properties:
 
-            Toast.makeText(this, result.text,Toast.LENGTH_LONG).show()
-        })
+        addButton.setOnClickListener {
+            val sum = firstNumEditText.text.toString().toInt() + secondNumEditText.text.toString().toInt()
+            resultTextView.text = "Add=$sum"
+            Toast.makeText(this, resultTextView.text, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
